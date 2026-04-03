@@ -1,0 +1,318 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "GeneralSans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PlayfairDisplay";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    /* AK Lib — Midnight Prestige theme */
+    --background: 0.13 0.04 278;
+    --foreground: 0.95 0.01 278;
+    --card: 0.18 0.055 278;
+    --card-foreground: 0.95 0.01 278;
+    --popover: 0.21 0.065 278;
+    --popover-foreground: 0.95 0.01 278;
+    --primary: 0.62 0.22 295;
+    --primary-foreground: 0.98 0.005 278;
+    --secondary: 0.26 0.055 278;
+    --secondary-foreground: 0.95 0.01 278;
+    --muted: 0.22 0.05 278;
+    --muted-foreground: 0.6 0.05 278;
+    --accent: 0.74 0.16 75;
+    --accent-foreground: 0.13 0.04 278;
+    --destructive: 0.62 0.22 20;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.26 0.06 278;
+    --input: 0.26 0.06 278;
+    --ring: 0.62 0.22 295;
+    --chart-1: 0.62 0.22 295;
+    --chart-2: 0.74 0.16 75;
+    --chart-3: 0.68 0.18 165;
+    --chart-4: 0.7 0.2 330;
+    --chart-5: 0.68 0.2 250;
+    --sidebar: 0.11 0.038 278;
+    --sidebar-foreground: 0.95 0.01 278;
+    --sidebar-primary: 0.62 0.22 295;
+    --sidebar-primary-foreground: 0.98 0.005 278;
+    --sidebar-accent: 0.18 0.055 278;
+    --sidebar-accent-foreground: 0.95 0.01 278;
+    --sidebar-border: 0.26 0.06 278;
+    --sidebar-ring: 0.62 0.22 295;
+    /* AK Lib custom tokens — Midnight Prestige */
+    --lib-bg: #0d0a1a;
+    --lib-sidebar: #0f0c1e;
+    --lib-card: #1a1530;
+    --lib-card2: #201a3a;
+    --lib-border: #2e2550;
+    --lib-teal: #a855f7;
+    --lib-teal-dark: #9333ea;
+    --lib-orange: #f59e0b;
+    --lib-positive: #10b981;
+    --lib-green: #059669;
+    --lib-text: #f0eeff;
+    --lib-text-sec: #b8aee8;
+    --lib-text-muted: #7b6ea8;
+    --lib-grid: #221c3e;
+  }
+
+  .dark {
+    --background: 0.13 0.04 278;
+    --foreground: 0.95 0.01 278;
+    --card: 0.18 0.055 278;
+    --card-foreground: 0.95 0.01 278;
+    --popover: 0.21 0.065 278;
+    --popover-foreground: 0.95 0.01 278;
+    --primary: 0.62 0.22 295;
+    --primary-foreground: 0.98 0.005 278;
+    --secondary: 0.26 0.055 278;
+    --secondary-foreground: 0.95 0.01 278;
+    --muted: 0.22 0.05 278;
+    --muted-foreground: 0.6 0.05 278;
+    --accent: 0.74 0.16 75;
+    --accent-foreground: 0.13 0.04 278;
+    --destructive: 0.62 0.22 20;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.26 0.06 278;
+    --input: 0.26 0.06 278;
+    --ring: 0.62 0.22 295;
+    --chart-1: 0.62 0.22 295;
+    --chart-2: 0.74 0.16 75;
+    --chart-3: 0.68 0.18 165;
+    --chart-4: 0.7 0.2 330;
+    --chart-5: 0.68 0.2 250;
+    --sidebar: 0.11 0.038 278;
+    --sidebar-foreground: 0.95 0.01 278;
+    --sidebar-primary: 0.62 0.22 295;
+    --sidebar-primary-foreground: 0.98 0.005 278;
+    --sidebar-accent: 0.18 0.055 278;
+    --sidebar-accent-foreground: 0.95 0.01 278;
+    --sidebar-border: 0.26 0.06 278;
+    --sidebar-ring: 0.62 0.22 295;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--lib-bg);
+    color: var(--lib-text);
+    font-family: "GeneralSans", "Inter", sans-serif;
+    @apply antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--lib-sidebar);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--lib-border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--lib-text-muted);
+  }
+}
+
+/* Custom utility classes for AK Lib — Midnight Prestige */
+.lib-card {
+  background: linear-gradient(135deg, var(--lib-card) 0%, var(--lib-card2) 100%);
+  border: 1px solid var(--lib-border);
+  border-radius: var(--radius);
+}
+
+.lib-sidebar-bg {
+  background-color: var(--lib-sidebar);
+}
+
+.lib-text {
+  color: var(--lib-text);
+}
+.lib-text-sec {
+  color: var(--lib-text-sec);
+}
+.lib-text-muted {
+  color: var(--lib-text-muted);
+}
+.lib-teal {
+  color: var(--lib-teal);
+}
+.lib-orange {
+  color: var(--lib-orange);
+}
+.lib-positive {
+  color: var(--lib-positive);
+}
+
+.lib-badge-available {
+  background: rgba(5, 150, 105, 0.15);
+  color: var(--lib-green);
+  border: 1px solid rgba(5, 150, 105, 0.3);
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.lib-badge-borrowed {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--lib-orange);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.lib-badge-teal {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--lib-teal);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.lib-input {
+  background-color: var(--lib-card2);
+  border: 1px solid var(--lib-border);
+  color: var(--lib-text);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.lib-input:focus {
+  border-color: var(--lib-teal);
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+}
+.lib-input::placeholder {
+  color: var(--lib-text-muted);
+}
+
+.lib-btn-primary {
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  color: #f0eeff;
+  font-weight: 600;
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background 0.2s, transform 0.1s;
+  cursor: pointer;
+  border: none;
+}
+.lib-btn-primary:hover {
+  background: linear-gradient(135deg, #9333ea 0%, #6d28d9 100%);
+  transform: translateY(-1px);
+}
+
+.lib-btn-secondary {
+  background-color: transparent;
+  color: var(--lib-text-sec);
+  font-weight: 500;
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--lib-border);
+}
+.lib-btn-secondary:hover {
+  background-color: var(--lib-card2);
+  color: var(--lib-text);
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #a855f7;
+  border-radius: 50%;
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
+  }
+}
+
+.lib-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Mobile safe-area utilities */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.pb-nav-safe {
+  padding-bottom: max(4.5rem, calc(4.5rem + env(safe-area-inset-bottom)));
+}
