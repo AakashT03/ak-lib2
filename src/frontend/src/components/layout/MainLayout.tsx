@@ -367,21 +367,30 @@ function MobileBottomNav({
 
 export default function MainLayout() {
   const navigate = useNavigate();
-  const { clear, identity } = useInternetIdentity();
+  const { clear, identity, isInitializing } = useInternetIdentity();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   const demoSession = getDemoSession();
+  const isAuthenticated = !!demoSession || (!!identity && !isInitializing);
+
+  // Redirect unauthenticated users to login
+  useEffect(() => {
+    if (!isInitializing && !isAuthenticated) {
+      navigate({ to: "/login" });
+    }
+  }, [isInitializing, isAuthenticated, navigate]);
+
   const principal = identity?.getPrincipal().toString();
   const shortPrincipal = demoSession
     ? demoSession.displayName
     : principal
       ? `${principal.slice(0, 6)}...${principal.slice(-4)}`
-      : "Guest";
+      : "";
   const userRoleLabel = demoSession ? demoSession.role : "Authenticated User";
 
   const isStudent = demoSession?.role === "Student";
-  const isStaff = !isStudent; // Internet Identity users treated as staff
+  const isStaff = !isStudent;
 
   // Redirect students away from restricted paths
   useEffect(() => {
@@ -411,12 +420,37 @@ export default function MainLayout() {
     setCurrentPath(path);
   };
 
+  // Show nothing while checking auth
+  if (isInitializing || !isAuthenticated) {
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "var(--lib-bg)" }}
+      >
+        <div className="flex flex-col items-center gap-4">
+          <div
+            className="w-12 h-12 rounded-xl flex items-center justify-center lib-glow"
+            style={{ background: "linear-gradient(135deg, #a855f7, #7c3aed)" }}
+          >
+            <BookOpen className="w-6 h-6 text-white" />
+          </div>
+          <div
+            className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin"
+            style={{
+              borderColor: "var(--lib-teal)",
+              borderTopColor: "transparent",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   // Filter nav items based on role
   const visibleNavItems = navItems
     .filter((item) => {
       if (item.staffOnly && !isStaff) return false;
       if (isStudent) {
-        // For items with children, show if any child is student-allowed
         if (item.children) {
           return item.children.some((c) => c.studentAllowed);
         }
@@ -425,7 +459,6 @@ export default function MainLayout() {
       return true;
     })
     .map((item) => {
-      // For student with children items, filter children too
       if (isStudent && item.children) {
         return {
           ...item,
